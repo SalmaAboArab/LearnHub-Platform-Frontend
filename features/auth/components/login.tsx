@@ -1,7 +1,9 @@
 'use client'
 
 import React from 'react'
-import { AuthCard, AuthTabs, LoginForm } from './auth-card'
+import { AuthCard } from './auth-card'
+import { AuthTabs } from './auth-tabs'
+import { LoginForm } from './auth-card'
 
 export function Login() {
   return (
