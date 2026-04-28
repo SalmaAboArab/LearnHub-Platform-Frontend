@@ -12,7 +12,7 @@ export function RHFInput({ name, label, type='text', className, ...props }: any)
         type={type}
         {...register(name)}
         {...props}
-        className={cn('w-full h-10 rounded-xl border px-3 outline-none focus:ring-1 focus:ring-blue-500', error && 'border-red-500 focus:ring-red-500', className)}
+        className={cn('w-full h-10 rounded-lg border border-gray-300 px-3 outline-none focus:ring-1 focus:ring-blue-500 focus:shadow-md focus:shadow-blue-200', error && 'border-red-500 focus:ring-red-500', className)}
       />
     </FieldWrapper>
   )
