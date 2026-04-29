@@ -3,13 +3,13 @@
 import React, { useState } from 'react'
 
 interface TabsProps {
-  defaultTab: 'login' | 'register'
-  onTabChange?: (tab: 'login' | 'register') => void
+  currentTab: 'login' | 'register'
+  onTabChange: (tab: 'login' | 'register') => void
   children: React.ReactNode
 }
 
-export function AuthTabs({ defaultTab, onTabChange, children }: TabsProps) {
-  const [activeTab, setActiveTab] = useState(defaultTab)
+export function AuthTabs({ currentTab, onTabChange, children }: TabsProps) {
+  const [activeTab, setActiveTab] = useState(currentTab)
 
   const handleTabChange = (tab: 'login' | 'register') => {
     setActiveTab(tab)

@@ -15,7 +15,7 @@ export function FormProvider({ methods, onSubmit, children, className }: FormPro
       {/* <form onSubmit={methods.handleSubmit(onSubmit)} className='space-y-4'>
         {children}
       </form> */}
-      <form onSubmit={onSubmit} noValidate autoComplete="off" className={cn('space-y-4', className)}>
+      <form onSubmit={onSubmit} noValidate autoComplete="off" className={cn('space-y-3', className)}>
         {children}
       </form>
     </RHFProvider>

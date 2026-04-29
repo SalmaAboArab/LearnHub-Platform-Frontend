@@ -18,19 +18,19 @@ export function Button({
   ...props
 }: ButtonProps) {
 
-  const base = 'rounded-xl transition inline-flex items-center justify-center gap-2 disabled:opacity-50'
+  const base = 'rounded-lg transition inline-flex items-center justify-center gap-2 disabled:opacity-50'
 
   const sizes = {
-    sm: 'h-8 px-3 text-sm',
+    sm: 'h-8 px-2 text-xs',
     md: 'h-10 px-4 text-sm',
     lg: 'h-12 px-6 text-lg'
   }
 
   const colors = {
     primary: {
-      contained: 'bg-blue-600 text-white hover:bg-blue-700',
-      outlined: 'border border-blue-600 text-blue-600 hover:bg-blue-50',
-      text: 'text-blue-600 hover:bg-blue-50'
+      contained: 'bg-indigo-500 text-white hover:bg-indigo-600',
+      outlined: 'border border-indigo-500 text-indigo-500 hover:bg-indigo-50',
+      text: 'text-indigo-500 hover:bg-indigo-50'
     },
     secondary: {
       contained: 'bg-gray-800 text-white hover:bg-gray-900',
