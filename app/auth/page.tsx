@@ -1,8 +1,8 @@
 import React from 'react'
 import { LearnHubBranding } from '@/features/shared/components/learnhub-branding'
-import { Login } from '@/features/auth/components/login'
+import { Auth } from '@/features/auth/components/auth'
 
-export default function Auth() {
+export default function AuthPage() {
   return (
     <div className="min-h-screen bg-[#f8fafc] flex items-center justify-center px-4">
       <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center md:m-4">
@@ -13,7 +13,7 @@ export default function Auth() {
 
         {/* Right Side - Login Form */}
         <div className="flex justify-center md:justify-end">
-          <Login />
+          <Auth />
         </div>
       </div>
     </div>
