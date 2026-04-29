@@ -6,7 +6,6 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { Lock, MailIcon, UsersRound } from "lucide-react";
-import { RHFRadioGroup } from "@/shared/forms/rhf-radio-group";
 import { RHFRadioButtonGroup } from "@/shared/forms/rhf-radio-button-group";
 
 export default function Register() {
@@ -95,7 +94,7 @@ export default function Register() {
         disabled={isSubmitting}
         className="w-full font-semibold"
       >
-        {isSubmitting ? "Submitting..." : "Create Account"}
+        {isSubmitting ? "Creating..." : "Create Account"}
       </Button>
     </FormProvider>
   );
