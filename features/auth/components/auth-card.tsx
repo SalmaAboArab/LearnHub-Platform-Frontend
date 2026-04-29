@@ -106,7 +106,7 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
       />
 
       <div className="flex justify-end">
-        <a href="#" className="text-sm text-indigo-500 hover:text-indigo-600 font-bold">
+        <a href="#" className="text-sm text-indigo-500 hover:text-indigo-600 font-semibold font-sans">
           Forgot password?
         </a>
       </div>
