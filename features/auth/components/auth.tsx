@@ -7,7 +7,7 @@ import { LoginForm } from "./auth-card";
 import Register from "./register";
 import { SocialLoginButtons } from "./social-login-buttons";
 
-export function Login() {
+export function Auth() {
   const [activeTab, setActiveTab] = useState<"login" | "register">("login");
   return (
     <AuthCard>

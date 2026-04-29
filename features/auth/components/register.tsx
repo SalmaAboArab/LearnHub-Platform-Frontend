@@ -22,7 +22,7 @@ export default function Register() {
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Passwords must match")
       .required("Confirm Password is required"),
-      role: Yup.string().required("Please select a role").default("student"),
+    role: Yup.string().required("Please select a role").default("student"),
   });
 
   const defaultValues = {

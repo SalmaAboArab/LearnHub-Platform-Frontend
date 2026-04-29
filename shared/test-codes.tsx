@@ -108,7 +108,7 @@ export default function Test() {
       {/* <Skeleton variant="rounded" width="100%" height={120} /> */}
       {/* <Skeleton variant="rectangular" animation="wave" height={200} /> */}
 
-      <Card className="w-80 m-3 p-4">
+      <Card className="w-80 m-3 p-4" variant="elevated">
         {/* <Skeleton variant="rectangular" width="100%" height={150} />
         <div className="p-4">
           <Skeleton variant="text" width="60%" />
