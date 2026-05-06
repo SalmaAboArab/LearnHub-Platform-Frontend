@@ -1,101 +1,141 @@
-import { FormProvider } from "@/shared/forms/form-provider";
-import { Button } from "@/shared/ui/button";
-import { RHFInput } from "@/shared/forms/rhf-input";
-import { yupResolver } from "@hookform/resolvers/yup";
-import React from "react";
-import { useForm } from "react-hook-form";
-import * as Yup from "yup";
-import { Lock, MailIcon, UsersRound } from "lucide-react";
-import { RHFRadioButtonGroup } from "@/shared/forms/rhf-radio-button-group";
+'use client'
+
+import React, { useState } from 'react'
+import { Mail, Lock, User } from 'lucide-react'
+import * as Yup from 'yup'
+import { FormField } from './auth-card'
+import { registerSchema, type RegisterFormData } from '../schemas/validation-schema'
 
 export default function Register() {
-  const Schema = Yup.object().shape({
-    username: Yup.string()
-      .required("Full Name is required")
-      .min(3, "Full Name must be at least 3 characters"),
-    email: Yup.string()
-      .required("Email is required")
-      .email("Email must be a valid email address"),
-    password: Yup.string()
-      .required("Password is required")
-      .min(6, "Password must be at least 6 characters"),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password")], "Passwords must match")
-      .required("Confirm Password is required"),
-    role: Yup.string().required("Please select a role").default("student"),
-  });
+  const [formData, setFormData] = useState<RegisterFormData>({
+    fullName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    role: 'student',
+  })
+  const [errors, setErrors] = useState<Record<string, string>>({})
 
-  const defaultValues = {
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    role: "student",
-  };
+  const handleChange = (field: keyof RegisterFormData) => (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: e.target.value,
+    }))
+    // Clear error for this field when user starts typing
+    if (errors[field]) {
+      setErrors((prev) => ({
+        ...prev,
+        [field]: '',
+      }))
+    }
+  }
 
-  const methods = useForm({
-    resolver: yupResolver(Schema),
-    defaultValues,
-  });
-
-  const {
-    handleSubmit,
-    formState: { isSubmitting },
-  } = methods;
-
-  const onSubmit = handleSubmit(async (data) => {
-    console.log("data: ", data);
-  });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    try {
+      const validatedData = await registerSchema.validate(formData, { abortEarly: false })
+      setErrors({})
+      console.log('Register data:', validatedData)
+    } catch (error) {
+      const newErrors: Record<string, string> = {}
+      if (error instanceof Yup.ValidationError) {
+        error.inner.forEach((err: Yup.ValidationError) => {
+          newErrors[err.path || ''] = err.message
+        })
+      }
+      setErrors(newErrors)
+    }
+  }
 
   return (
-    <FormProvider methods={methods} onSubmit={onSubmit} className="">
-      <RHFRadioButtonGroup
-        name="role"
-        label="I want to join as"
-        options={[
-          { label: "Student", value: "student" },
-          { label: "Instructor", value: "instructor" },
-        ]}
-      />
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label className="block text-sm font-semibold text-gray-900/75">I want to join as</label>
+        <div className="flex gap-4 mt-2">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              name="role"
+              value="student"
+              checked={formData.role === 'student'}
+              onChange={handleChange('role')}
+              className="w-4 h-4 text-indigo-500"
+            />
+            <span className="text-sm text-gray-700">Student</span>
+          </label>
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              name="role"
+              value="instructor"
+              checked={formData.role === 'instructor'}
+              onChange={handleChange('role')}
+              className="w-4 h-4 text-indigo-500"
+            />
+            <span className="text-sm text-gray-700">Instructor</span>
+          </label>
+        </div>
+        {errors.role && <p className="text-red-500 text-xs mt-1">{errors.role}</p>}
+      </div>
 
-      <RHFInput
-        name="username"
-        label="Full Name"
-        placeholder="John Doe"
-        className="placeholder:text-sm"
-        icon={<UsersRound className="w-4 h-4" />}
-      />
-      <RHFInput
-        name="email"
-        label="Email Address"
-        type="email"
-        placeholder="you@example.com"
-        className="placeholder:text-sm"
-        icon={<MailIcon className="w-4 h-4" />}
-      />
-      <RHFInput
-        name="password"
-        label="Password"
-        type="password"
-        placeholder="••••••••"
-        className="placeholder:text-sm"
-        icon={<Lock className="w-4 h-4" />}
-      />
-      <RHFInput
-        name="confirmPassword"
-        label="Confirm Password"
-        type="password"
-        placeholder="••••••••"
-        className="placeholder:text-sm"
-        icon={<Lock className="w-4 h-4" />}
-      />
-      <Button
+      <div>
+        <FormField
+          label="Full Name"
+          type="text"
+          placeholder="John Doe"
+          icon={<User size={18} />}
+          value={formData.fullName}
+          onChange={handleChange('fullName')}
+        />
+        {errors.fullName && <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>}
+      </div>
+
+      <div>
+        <FormField
+          label="Email Address"
+          type="email"
+          placeholder="you@example.com"
+          icon={<Mail size={18} />}
+          value={formData.email}
+          onChange={handleChange('email')}
+        />
+        {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+      </div>
+
+      <div>
+        <FormField
+          label="Password"
+          isPassword
+          placeholder="••••••••"
+          icon={<Lock size={18} />}
+          value={formData.password}
+          onChange={handleChange('password')}
+          showPasswordToggle
+        />
+        {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
+      </div>
+
+      <div>
+        <FormField
+          label="Confirm Password"
+          isPassword
+          placeholder="••••••••"
+          icon={<Lock size={18} />}
+          value={formData.confirmPassword}
+          onChange={handleChange('confirmPassword')}
+          showPasswordToggle
+        />
+        {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>}
+      </div>
+
+      <button
         type="submit"
-        disabled={isSubmitting}
-        className="w-full font-semibold"
+        className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 rounded-lg transition-colors"
       >
-        {isSubmitting ? "Creating..." : "Create Account"}
-      </Button>
-    </FormProvider>
-  );
+        Create Account
+      </button>
+    </form>
+  )
 }
