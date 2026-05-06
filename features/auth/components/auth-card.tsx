@@ -1,9 +1,7 @@
 'use client'
 
 import React from 'react'
-import { Mail, Lock, Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
-import { SocialLoginButtons } from './social-login-buttons'
 
 interface AuthCardProps {
   children: React.ReactNode
@@ -72,52 +70,5 @@ export function FormField({
   )
 }
 
-interface LoginFormProps {
-  onSubmit?: (data: { email: string; password: string }) => void
-}
+export type { FormFieldProps }
 
-export function LoginForm({ onSubmit }: LoginFormProps) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    onSubmit?.({ email, password })
-  }
-
-  return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <FormField
-        label="Email Address"
-        type="email"
-        placeholder="you@example.com"
-        icon={<Mail size={18} />}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <FormField
-        label="Password"
-        isPassword
-        placeholder="••••••••"
-        icon={<Lock size={18} />}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        showPasswordToggle
-      />
-
-      <div className="flex justify-end">
-        <a href="#" className="text-sm text-indigo-500 hover:text-indigo-600 font-semibold font-sans">
-          Forgot password?
-        </a>
-      </div>
-
-      <button
-        type="submit"
-        className="w-full bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold py-3 rounded-lg transition-colors"
-      >
-        Sign In
-      </button>
-
-    </form>
-  )
-}
