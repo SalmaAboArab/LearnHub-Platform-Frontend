@@ -6,11 +6,11 @@ import * as Yup from 'yup'
 import { FormField } from './auth-card'
 import { loginSchema, type LoginFormData } from '../schemas/validation-schema'
 
-interface AuthFormProps {
+interface LoginFormProps {
   onSubmit?: (data: LoginFormData) => void
 }
 
-export function AuthForm({ onSubmit }: AuthFormProps) {
+export function LoginForm({ onSubmit }: LoginFormProps) {
   const [formData, setFormData] = useState<LoginFormData>({
     email: '',
     password: '',
