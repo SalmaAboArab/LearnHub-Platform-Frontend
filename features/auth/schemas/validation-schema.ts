@@ -14,7 +14,7 @@ export type LoginFormData = Yup.InferType<typeof loginSchema>
 
 // Register Schema
 export const registerSchema = Yup.object().shape({
-  fullName: Yup.string()
+  username: Yup.string()
     .required('Full Name is required')
     .min(3, 'Full Name must be at least 3 characters'),
   email: Yup.string()

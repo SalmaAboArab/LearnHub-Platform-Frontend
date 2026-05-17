@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { AuthCard } from "./auth-card";
 import { AuthTabs } from "./auth-tabs";
-import { AuthForm } from "./auth-form";
+import { LoginForm } from "./login-form";
 import Register from "./register";
 import { SocialLoginButtons } from "./social-login-buttons";
 
@@ -13,7 +13,7 @@ export function Auth() {
     <AuthCard>
       <AuthTabs currentTab={activeTab} onTabChange={setActiveTab}>
         {activeTab === "login" ? (
-          <AuthForm onSubmit={(data) => console.log("Login data:", data)} />
+          <LoginForm onSubmit={(data) => console.log("Login data:", data)} />
         ) : (
           <Register />
         )}
